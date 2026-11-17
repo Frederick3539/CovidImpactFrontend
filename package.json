@@ -64,5 +64,8 @@
     ],
     "vuese": {
         "title": "COVID Finance"
+    },
+    "engines": {
+        "node": ">=22"
     }
 }

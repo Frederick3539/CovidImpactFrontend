@@ -1,6 +1,8 @@
 import {shallowMount} from "@vue/test-utils";
 import Search from "@/components/Search.vue";
 
+jest.mock("@/main", ()=> ({__esModule: true, default: {}}));
+
 describe("Chart.vue", () => {
     it("check input text", () => {
         const wrapper = shallowMount(Search, {
