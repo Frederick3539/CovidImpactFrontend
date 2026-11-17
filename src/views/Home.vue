@@ -94,24 +94,13 @@
         />
         <Loading v-if="loadingHistorical" />
         <h2 v-else-if="historyDataCovidError">No historical data found</h2>
-        <Chart
-            v-else
-            :title="`COVID Data for ${
-                displaying === 'country' ? country.name : states[stateSelected]
-            }`"
-            :data="dataCovid"
-            :options="options"
-        />
-        <!-- <Chart title="Stock Data" :data="dataStock" :options="options" /> -->
     </section>
 </template>
 
 <script>
 import countries from "@/assets/countries";
-import Chart from "../components/Chart";
 import Select from "../components/Select";
 import Loading from "../components/Loading";
-import options from "@/assets/chartOptions.js";
 import db from "../main";
 import { firebase } from "@firebase/app";
 import "@firebase/auth";
@@ -122,7 +111,6 @@ import "@firebase/auth";
  */
 export default {
     components: {
-        Chart,
         Select,
         Loading,
     },
@@ -152,7 +140,6 @@ export default {
             stateSelected: null,
             dataCovid: {},
             historyDataCovidError: false,
-            options: options[localStorage.getItem("theme") || "light"],
             displaying: "country",
             countryIndex: null,
             countryCOVIDData: {},
@@ -340,7 +327,7 @@ export default {
                     },
                 ];
 
-                this.dataCovid = { ...this.options, series };
+                this.dataCovid = { series };
                 this.loadingHistorical = false;
             } catch (error) {
                 console.log(error);

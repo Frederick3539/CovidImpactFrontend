@@ -10,8 +10,6 @@
         "build:report": "vue-cli-service build --report"
     },
     "dependencies": {
-        "highcharts": "^8.2.2",
-        "highcharts-vue": "^1.3.5",
         "vue": "^2.6.11",
         "vue-router": "^3.4.8"
     },

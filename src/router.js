@@ -13,14 +13,6 @@ const router = new Router({
             component: Home,
         },
         {
-            path: "/world",
-            name: "covidWorld",
-            component: () =>
-                import(
-                    /* webpackChunkName: "covidWorld" */ "./views/CovidWorld.vue"
-                ),
-        },
-        {
             path: "/city",
             name: "covidCity",
             component: () =>

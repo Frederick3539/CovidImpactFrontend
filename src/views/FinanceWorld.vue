@@ -8,28 +8,17 @@
         <h1 v-if="historyDataStockError">
             No historical stock data found for {{ stockName }}
         </h1>
-        <stock-chart
-            v-else
-            :title="`${stockName.name} |  ${stockName.region} | ${stockName.symbol} | ${stockName.exchange} stock price`"
-            :data="dataStock"
-        />
         <h1 v-if="historyDataCovidError">No historical covid data found</h1>
-        <stock-chart v-else :title="`COVID Data for World`" :data="dataCovid" />
     </section>
 </template>
 
 <script>
-import StockChart from "../components/StockChart";
-import options from "@/assets/chartOptions.js";
 
 // @group Views
 /**
  * To analyse impact of COVID-19 on stock market
  */
 export default {
-    components: {
-        StockChart,
-    },
     props: {
         // The theme for the page
         theme: { type: String, required: false, default: "light" },
@@ -60,7 +49,6 @@ export default {
             historyDataStockError: false,
             dataStock: {},
             dates: {},
-            options: options[localStorage.getItem("theme") || "light"],
         };
     },
     methods: {
@@ -107,7 +95,7 @@ export default {
                     },
                 ];
 
-                this.dataCovid = { ...this.options, series };
+                this.dataCovid = { series };
                 datesAll = dates;
             } catch (error) {
                 console.log(error);
@@ -155,7 +143,7 @@ export default {
                     },
                 ];
 
-                this.dataStock = { ...this.options, series };
+                this.dataStock = { series };
             } catch (error) {
                 console.log(error);
                 this.historyDataStockError = true;

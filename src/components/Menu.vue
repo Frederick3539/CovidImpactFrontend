@@ -27,12 +27,6 @@
                 <router-link
                     tag="li"
                     class="menu--item"
-                    :to="{ name: 'covidWorld' }"
-                    >World</router-link
-                >
-                <router-link
-                    tag="li"
-                    class="menu--item"
                     :to="{ name: 'covidCity' }"
                     >City</router-link
                 >
@@ -114,12 +108,6 @@
                         class="menu--item"
                         :to="{ name: 'home' }"
                         >Country</router-link
-                    >
-                    <router-link
-                        tag="li"
-                        class="menu--item"
-                        :to="{ name: 'covidWorld' }"
-                        >World</router-link
                     >
                     <router-link
                         tag="li"

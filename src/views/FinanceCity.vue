@@ -3,11 +3,6 @@
         <h1 v-if="historyDataStockError">
             No historical stock data found for {{ stockName }}
         </h1>
-        <stock-chart
-            v-else
-            :title="`${stockName.name} |  ${stockName.region} | ${stockName.symbol} | ${stockName.exchange} stock price`"
-            :data="dataStock"
-        />
 
         <h1>Currently only supports USA Counties</h1>
         <div
@@ -35,25 +30,12 @@
 
         <Loading v-if="loadingCounty" />
         <h1 v-if="countyError">Error ocuured while getting County</h1>
-
-        <stock-chart
-            v-if="
-                !loadingCounties &&
-                !countiesError &&
-                !loadingCounty &&
-                !countyError
-            "
-            :title="`COVID Data in ${currentCountyData[countySelected].county}`"
-            :data="getData"
-        />
     </section>
 </template>
 
 <script>
 import Select from "../components/Select";
-import StockChart from "../components/StockChart";
 import Loading from "../components/Loading";
-import options from "@/assets/chartOptions.js";
 
 // @group Views
 /**
@@ -62,7 +44,6 @@ import options from "@/assets/chartOptions.js";
 export default {
     components: {
         Select,
-        StockChart,
         Loading,
     },
     props: {
@@ -89,36 +70,8 @@ export default {
             }),
         },
     },
-    computed: {
-        getData: function () {
-            const data = this.currentCountyData[this.countySelected];
-
-            let dates = Object.keys(data.timeline.cases);
-            let cases = Object.values(data.timeline.cases);
-            let deaths = Object.values(data.timeline.deaths);
-
-            const series = [
-                {
-                    name: "Cases",
-                    data: this.zip(cases, dates),
-                    color: "#708090",
-                },
-                {
-                    name: "Deaths",
-                    data: this.zip(deaths, dates),
-                    color: "rgb(244, 67, 54)",
-                },
-            ];
-
-            return {
-                ...this.options,
-                series,
-            };
-        },
-    },
     data: function () {
         return {
-            options: options[localStorage.getItem("theme") || "light"],
             loadingCounties: true,
             countiesError: false,
             countyList: [],
@@ -246,7 +199,7 @@ export default {
                     },
                 ];
 
-                this.dataStock = { ...this.options, series };
+                this.dataStock = { series };
             } catch (error) {
                 this.historyDataStockError = true;
             }

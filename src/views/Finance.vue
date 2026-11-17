@@ -31,11 +31,6 @@
         <h1 v-if="historyDataStockError">
             No historical stock data found for {{ stockName.name }}
         </h1>
-        <stock-chart
-            v-else
-            :title="`${stockName.name} |  ${stockName.region} | ${stockName.symbol} | ${stockName.exchange} stock price`"
-            :data="dataStock"
-        />
         <Select
             v-if="states != 'mainland' && !historyDataCovidError"
             :data="getStates"
@@ -49,20 +44,10 @@
         <h1 v-if="historyDataCovidError">
             No historical covid data found for {{ country.name }}
         </h1>
-        <stock-chart
-            v-else
-            :title="`COVID Data for ${
-                displaying === 'country' ? country.name : states[stateSelected]
-            }`"
-            :data="dataCovid"
-        />
-        <!-- <Chart title="Stock Data" :data="dataStock" :options="options" /> -->
     </section>
 </template>
 
 <script>
-import StockChart from "../components/StockChart";
-import options from "@/assets/chartOptions.js";
 import Select from "../components/Select";
 import countries from "@/assets/countries.js";
 import Loading from "../components/Loading";
@@ -76,7 +61,6 @@ import "@firebase/auth";
  */
 export default {
     components: {
-        StockChart,
         Select,
         Loading,
     },
@@ -112,7 +96,6 @@ export default {
             historyDataStockError: false,
             dataStock: {},
             dates: {},
-            options: options[localStorage.getItem("theme") || "light"],
             country: JSON.parse(localStorage.getItem("country")) || {
                 code: "CA",
                 code3: "CAN",
@@ -300,7 +283,7 @@ export default {
                     },
                 ];
 
-                this.dataCovid = { ...this.options, series };
+                this.dataCovid = { series };
             } catch (error) {
                 console.log(error);
                 this.historyDataCovidError = true;
@@ -353,7 +336,7 @@ export default {
                     },
                 ];
 
-                this.dataStock = { ...this.options, series };
+                this.dataStock = { series };
             } catch (error) {
                 console.log(error);
                 this.historyDataStockError = true;

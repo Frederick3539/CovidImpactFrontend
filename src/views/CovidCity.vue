@@ -29,26 +29,12 @@
         <!-- <h1 v-if="loadingCounty">Loading...</h1> -->
         <Loading v-if="loadingCounty" />
         <h1 v-if="countyError">Error ocuured while getting County</h1>
-
-        <stock-chart
-            v-if="
-                !loadingCounties &&
-                !countiesError &&
-                !loadingCounty &&
-                !countyError
-            "
-            :title="`COVID Data in ${currentCountyData[countySelected].county}`"
-            :data="getData"
-        />
     </section>
 </template>
 
 <script>
 import Select from "../components/Select";
 import Loading from "../components/Loading";
-
-import options from "@/assets/chartOptions.js";
-import StockChart from "../components/StockChart.vue";
 
 // @group Views
 /**
@@ -57,48 +43,10 @@ import StockChart from "../components/StockChart.vue";
 export default {
     components: {
         Select,
-        Loading,
-        StockChart,
-    },
-    computed: {
-        getData: function () {
-            const data = this.currentCountyData[this.countySelected];
-
-            let dates = Object.keys(data.timeline.cases);
-            let cases = Object.values(data.timeline.cases);
-            let deaths = Object.values(data.timeline.deaths);
-
-            const series = [
-                {
-                    name: "Cases",
-                    data: this.zip(cases, dates),
-                    color: "#708090",
-                },
-                {
-                    name: "Deaths",
-                    data: this.zip(deaths, dates),
-                    color: "rgb(244, 67, 54)",
-                },
-            ];
-            // this.options = {
-            //     ...this.options,
-            //     chart: {
-            //         ...this.options.chart,
-            //         height: "50%",
-            //     },
-            // };
-            return {
-                ...this.options,
-                chart: {
-                    ...this.options.chart,
-                },
-                series,
-            };
-        },
+        Loading, 
     },
     data: function () {
         return {
-            options: options[localStorage.getItem("theme") || "light"],
             loadingCounties: true,
             countiesError: false,
             countyList: [],
@@ -110,13 +58,6 @@ export default {
         };
     },
     methods: {
-        /**
-         * @vuese
-         * Zips two given arrays into a two dimensional array.
-         * @arg array to zip
-         * @arg array to zip
-         */
-        zip: (a, b) => a.map((k, i) => [Date.parse(b[i]), k]),
         /**
          * @vuese
          * Gets a list of the counties for which data can be fetched.
