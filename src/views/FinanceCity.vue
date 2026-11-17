@@ -205,7 +205,7 @@ export default {
         getStockData: async function () {
             try {
                 const responseFinance = await fetch(
-                    "https://sandbox.iexapis.com/stable/stock/CCL/chart/1y?token=Tsk_78ffb2c08b1443a98a73f83fd7ae5e3b"
+                    `https://sandbox.iexapis.com/stable/stock/CCL/chart/1y?token=${process.env.VUE_APP_IEX_TOKEN}`
                 );
                 const dataFinance = await responseFinance.json();
 
