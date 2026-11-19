@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 5000",
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build && node -e\"console.log('Build comoplete.)\"",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint",
         "build:report": "vue-cli-service build --report"
@@ -24,7 +24,6 @@
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
         "firebase": "^8.1.1",
-        "prerender-spa-plugin": "^3.2.1",
         "vue-template-compiler": "^2.6.11",
         "vuese": "^1.4.7"
     },
