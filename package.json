@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 5000",
-        "build": "vue-cli-service build && node -e \"console.log('Build comoplete.)\"",
+        "build": "vue-cli-service build && node -e \"console.log('Build complete.')\"",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint",
         "build:report": "vue-cli-service build --report"
